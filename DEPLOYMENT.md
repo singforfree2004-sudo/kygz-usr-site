@@ -30,6 +30,12 @@ The public website should use only curated website content and public links.
 GitHub -> Netlify
 ```
 
+GitHub repository:
+
+```text
+https://github.com/singforfree2004-sudo/kygz-usr-site
+```
+
 Netlify publish directory:
 
 ```text
