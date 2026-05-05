@@ -544,7 +544,7 @@ h3 {
 
 .song-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
 }
 
@@ -784,6 +784,10 @@ h3 {
 
   .song-grid {
     grid-template-columns: 1fr;
+  }
+
+  .song-card {
+    min-height: 96px;
   }
 
   .metrics div {
