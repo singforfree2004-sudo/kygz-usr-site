@@ -26,6 +26,34 @@ The public website should use only curated website content and public links.
 
 ## Recommended Deployment
 
+### GitHub Pages
+
+The site is deployed from the `gh-pages` branch, generated from:
+
+```text
+site/
+```
+
+Publish command:
+
+```text
+git subtree push --prefix site origin gh-pages
+```
+
+Public URL after Pages is enabled:
+
+```text
+https://singforfree2004-sudo.github.io/kygz-usr-site/
+```
+
+Quick brief page:
+
+```text
+https://singforfree2004-sudo.github.io/kygz-usr-site/brief.html
+```
+
+## Previous Netlify Setup
+
 ```text
 GitHub -> Netlify
 ```
