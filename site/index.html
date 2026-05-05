@@ -27,6 +27,7 @@
       </a>
       <nav aria-label="主要導覽">
         <a href="#why"><span class="zh">為什麼</span><span class="en">Why</span></a>
+        <a href="#story-map"><span class="zh">地圖</span><span class="en">Map</span></a>
         <a href="#method"><span class="zh">方法</span><span class="en">Method</span></a>
         <a href="#outcomes"><span class="zh">成果</span><span class="en">Outcomes</span></a>
         <a href="#media"><span class="zh">影音</span><span class="en">Media</span></a>
@@ -118,6 +119,57 @@
           <img src="assets/media/sigang-mothers-podcast.webp" alt="" />
           <figcaption><span class="zh">Podcast 留下居民的聲音</span><span class="en">Podcast recording preserves residents' voices</span></figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="section story-map-section" id="story-map">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-kicker">
+            <span class="zh">互動式成果地圖</span>
+            <span class="en">Interactive Story Map</span>
+          </p>
+          <h2>
+            <span class="zh">點一個地方，看見它如何變成歌曲、課程、訪談與共演。</span>
+            <span class="en">Tap a place to see how it becomes songs, learning, interviews, and shared performance.</span>
+          </h2>
+        </div>
+        <div class="story-map-layout">
+          <div class="story-map-panel" aria-label="西港計畫互動地圖">
+            <img class="story-map-base" src="assets/media/sigang-map.webp" alt="" />
+            <button class="map-pin active" style="--x: 54%; --y: 42%;" type="button" data-story="temple">
+              <span class="zh">慶安宮</span><span class="en">Qing'an Temple</span>
+            </button>
+            <button class="map-pin" style="--x: 38%; --y: 60%;" type="button" data-story="baicheng">
+              <span class="zh">白埕物所</span><span class="en">Baicheng Wu-Suo</span>
+            </button>
+            <button class="map-pin" style="--x: 66%; --y: 29%;" type="button" data-story="children">
+              <span class="zh">後營國小</span><span class="en">Houying School</span>
+            </button>
+            <button class="map-pin" style="--x: 28%; --y: 35%;" type="button" data-story="podcast">
+              <span class="zh">居民聲音</span><span class="en">Resident Voices</span>
+            </button>
+            <button class="map-pin" style="--x: 57%; --y: 73%;" type="button" data-story="musical">
+              <span class="zh">音樂劇</span><span class="en">Musical</span>
+            </button>
+            <button class="map-pin" style="--x: 78%; --y: 54%;" type="button" data-story="singapore">
+              <span class="zh">亞太連線</span><span class="en">APAC Link</span>
+            </button>
+          </div>
+          <article class="story-map-card" aria-live="polite">
+            <img id="story-map-image" src="assets/media/sigang-qingan-temple.webp" alt="" />
+            <div class="story-map-content">
+              <span id="story-map-tag">Local Heritage</span>
+              <h3 id="story-map-title">西港慶安宮</h3>
+              <p id="story-map-body">從香科、廟埕與地方記憶出發，讓學生理解西港文化不是靜態資產，而是可以被重新詮釋與共同創作的生活場域。</p>
+              <div class="story-map-chips" id="story-map-chips" aria-label="成果類型"></div>
+              <a class="story-map-link" id="story-map-link" href="#method">
+                <span class="zh">看相關內容</span>
+                <span class="en">View Related Work</span>
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
