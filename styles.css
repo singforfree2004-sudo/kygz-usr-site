@@ -403,6 +403,87 @@ h3 {
   font-weight: 950;
 }
 
+.logic-section {
+  background:
+    linear-gradient(180deg, rgba(220, 239, 229, .36), rgba(255, 253, 248, 0)),
+    var(--paper);
+}
+
+.logic-head {
+  max-width: 960px;
+}
+
+.logic-formula {
+  display: inline-flex;
+  max-width: 900px;
+  margin: 6px 0 0;
+  padding: 16px 20px;
+  border-left: 5px solid var(--gold);
+  background: white;
+  color: var(--green-dark);
+  box-shadow: 0 18px 44px rgba(16, 32, 27, .08);
+  font-size: clamp(1.1rem, 2vw, 1.42rem);
+  font-weight: 950;
+  line-height: 1.42;
+}
+
+.logic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 34px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.logic-grid article {
+  position: relative;
+  min-height: 330px;
+  padding: 28px 24px 30px;
+  background: white;
+}
+
+.logic-grid article::after {
+  content: "";
+  position: absolute;
+  right: -11px;
+  top: 40px;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  background: white;
+  transform: rotate(45deg);
+}
+
+.logic-grid article:last-child::after {
+  display: none;
+}
+
+.logic-grid span,
+.method-path span {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 24px;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: white;
+  font-size: .86rem;
+  font-weight: 950;
+}
+
+.logic-grid h3 {
+  min-height: 58px;
+}
+
+.logic-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
 .story-map-section {
   background: #f3f7ed;
 }
@@ -546,6 +627,53 @@ h3 {
   background: var(--soft);
 }
 
+.method-path {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.method-path article {
+  position: relative;
+  min-height: 126px;
+  padding: 18px 16px;
+  border: 1px solid rgba(15, 103, 78, .16);
+  background: rgba(255, 255, 255, .72);
+}
+
+.method-path article::after {
+  content: "";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.method-path article:last-child::after {
+  display: none;
+}
+
+.method-path span {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 16px;
+  background: var(--gold);
+  color: #171109;
+  font-size: .78rem;
+}
+
+.method-path strong {
+  display: block;
+  color: var(--green-dark);
+  font-size: 1.02rem;
+  line-height: 1.25;
+}
+
 .method-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -581,6 +709,32 @@ h3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
+}
+
+.outcome-lens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.outcome-lens article {
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: #fff8ea;
+}
+
+.outcome-lens span {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.outcome-lens p {
+  margin-bottom: 0;
+  color: var(--muted);
 }
 
 .outcome-card {
@@ -858,6 +1012,18 @@ h3 {
   align-content: center;
 }
 
+.contact-email {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--gold);
+  color: rgba(255, 255, 255, .9);
+  font-size: 1.02rem;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
 .qr {
   width: 142px;
   height: 142px;
@@ -1072,6 +1238,8 @@ h3 {
   .metrics,
   .method-grid,
   .outcome-grid,
+  .logic-grid,
+  .outcome-lens,
   .recognition-grid,
   .why-layout,
   .model-layout,
@@ -1081,6 +1249,18 @@ h3 {
   .brief-hero-layout,
   .brief-split {
     grid-template-columns: 1fr;
+  }
+
+  .method-path {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .logic-grid article {
+    min-height: auto;
+  }
+
+  .logic-grid article::after {
+    display: none;
   }
 
   .brief-method-grid,
@@ -1183,6 +1363,26 @@ h3 {
 
   .metrics {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .method-path {
+    grid-template-columns: 1fr;
+  }
+
+  .method-path article {
+    min-height: 0;
+  }
+
+  .method-path article::after {
+    right: auto;
+    left: 29px;
+    top: auto;
+    bottom: -10px;
+    transform: rotate(135deg);
+  }
+
+  .logic-formula {
+    display: block;
   }
 
   .song-head {
