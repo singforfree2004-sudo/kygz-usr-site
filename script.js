@@ -16,8 +16,8 @@ const storyMapData = {
       en: "Sigang Qing'an Temple"
     },
     body: {
-      zh: "從香科、廟埕與地方記憶出發，讓學生理解西港文化不是靜態資產，而是可以被重新詮釋與共同創作的生活場域。",
-      en: "Temple rituals, public space, and local memory help students understand Sigang culture as a living field that can be reinterpreted and co-created."
+      zh: "香科、廟埕與地方記憶，是西港最先開口的地方。學生從這裡學會：文化不是遠遠觀看的風景，而是可以一起靠近、一起創作的生活。",
+      en: "Temple rituals, public space, and local memory are where Sigang first begins to speak. Students learn that culture is not a distant view, but a life that can be approached and co-created."
     },
     chips: {
       zh: ["香科文化", "地方踏查", "文化轉譯"],
@@ -33,8 +33,8 @@ const storyMapData = {
       en: "Baicheng Wu-Suo"
     },
     body: {
-      zh: "老屋、食農教育與地方產業成為學生進入西港的入口，讓胡麻、故事館與社區空間被整理成可學習、可創作的地方平台。",
-      en: "The old house, food education, and local industry become entry points for students to connect sesame culture, local stories, and community space."
+      zh: "一棟老屋、一把胡麻、一場餐桌旁的談話，都可能是認識西港的入口。白埕物所讓地方產業、食農教育與社區生活有了可以停留、學習、再出發的地方。",
+      en: "An old house, a handful of sesame, and a conversation by the table can all become entry points into Sigang. Baicheng Wu-Suo gives food education, local industry, and community life a place to gather and begin again."
     },
     chips: {
       zh: ["食農教育", "地方平台", "老屋再使用"],
@@ -50,8 +50,8 @@ const storyMapData = {
       en: "Children's Music Camp"
     },
     body: {
-      zh: "小朋友不是只聽大人說地方故事，而是透過唱歌、節奏、歌詞與演出，把西港記憶變成自己可以參與的文化經驗。",
-      en: "Children do not only hear local stories from adults; through singing, rhythm, lyrics, and performance, they turn Sigang memory into lived participation."
+      zh: "孩子們不只是聽大人講西港。他們跟著節奏拍手、把歌詞唱出口，也把家鄉記憶變成自己身體裡的聲音。",
+      en: "Children do not only listen to adults speak about Sigang. They clap with the rhythm, sing the lyrics aloud, and let local memory become a sound inside their own bodies."
     },
     chips: {
       zh: ["兒童參與", "音樂教育", "文化傳承"],
@@ -67,8 +67,8 @@ const storyMapData = {
       en: "Sigang Mothers Podcast"
     },
     body: {
-      zh: "居民的聲音被錄下、剪輯、上架，地方記憶不再只停留在私人聊天，而變成可被聽見、保存與再使用的公共內容。",
-      en: "Residents' voices are recorded, edited, and published so local memory can move from private conversation into public, reusable cultural content."
+      zh: "麥克風打開的時候，平常在市場、廚房與路口說著的故事，也有了被好好聽見的位置。Podcast 讓媽媽們的聲音，成為可以反覆回來聽的地方記憶。",
+      en: "When the microphone opens, stories usually told in markets, kitchens, and street corners are given a place to be heard with care. The podcast lets mothers' voices become local memory we can return to."
     },
     chips: {
       zh: ["Podcast", "居民聲音", "數位保存"],
@@ -84,8 +84,8 @@ const storyMapData = {
       en: "Sigang Musical Theatre"
     },
     body: {
-      zh: "學生、居民與專業團隊把田野故事轉成音樂劇與公開展演，讓文化成果從資料與訪談走向舞台，也走回社區。",
-      en: "Students, residents, and professional teams transform field stories into musical theatre and public showcases, bringing cultural work onto the stage and back to the community."
+      zh: "田野裡聽見的故事，經過排練、歌唱、走位與一次次修正，最後在舞台上亮起來。音樂劇讓學生與居民不是彼此的觀眾，而是同一個作品裡的人。",
+      en: "Stories heard in the field pass through rehearsal, singing, movement, and revision before lighting up on stage. Musical theatre lets students and residents become people inside the same work, not audiences for one another."
     },
     chips: {
       zh: ["音樂劇", "居民共創", "公共展演"],
@@ -101,8 +101,8 @@ const storyMapData = {
       en: "From Sigang to Singapore"
     },
     body: {
-      zh: "西港經驗被整理成可以交流的高教共創模式，連結地方場域、學生學習與亞太夥伴，讓社會共融不只停留在單一地方案例。",
-      en: "The Sigang experience is being organized as an exchangeable higher education co-creation model that connects local practice, student learning, and Asia-Pacific partners."
+      zh: "當西港的經驗被帶到新加坡，它不只是一次成果展示，而是一種邀請：邀請不同地方的學校與夥伴，一起想像高等教育如何陪地方長出自己的聲音。",
+      en: "When the Sigang experience travels to Singapore, it is more than a showcase. It becomes an invitation for schools and partners in different places to imagine how higher education can help local communities grow their own voices."
     },
     chips: {
       zh: ["國際合作", "高教共創", "模式延伸"],
