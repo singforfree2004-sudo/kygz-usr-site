@@ -812,6 +812,30 @@ h3 {
   font-weight: 950;
 }
 
+.model-person {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 18px;
+  align-items: center;
+  margin: 24px 0 20px;
+  padding: 14px;
+  background: rgba(255, 255, 255, .68);
+  border: 1px solid rgba(31, 95, 75, .14);
+}
+
+.model-person img {
+  width: 118px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 42% 18%;
+}
+
+.model-person figcaption {
+  color: var(--muted);
+  font-size: .94rem;
+  line-height: 1.7;
+}
+
 .contact-section {
   padding: 92px 0;
   background: #13261f;
