@@ -413,55 +413,87 @@ h3 {
   max-width: 960px;
 }
 
-.logic-formula {
-  display: inline-flex;
-  max-width: 900px;
-  margin: 6px 0 0;
-  padding: 16px 20px;
-  border-left: 5px solid var(--gold);
-  background: white;
-  color: var(--green-dark);
+.logic-equation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  max-width: 1040px;
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px solid rgba(15, 103, 78, .16);
+  background: rgba(255, 255, 255, .82);
   box-shadow: 0 18px 44px rgba(16, 32, 27, .08);
-  font-size: clamp(1.1rem, 2vw, 1.42rem);
+}
+
+.logic-equation span,
+.logic-equation strong {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: var(--leaf);
+  color: var(--green-dark);
   font-weight: 950;
-  line-height: 1.42;
+  line-height: 1.2;
+}
+
+.logic-equation strong {
+  background: var(--gold);
+  color: #171109;
+}
+
+.logic-equation b {
+  color: var(--coral);
+  font-size: 1.22rem;
+  line-height: 1;
 }
 
 .logic-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  margin-top: 34px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: 18px;
+  margin-top: 38px;
+}
+
+.logic-grid::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 69px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--coral), var(--green));
 }
 
 .logic-grid article {
   position: relative;
-  min-height: 330px;
-  padding: 28px 24px 30px;
-  background: white;
+  min-height: 370px;
+  padding: 26px 22px 28px;
+  border: 1px solid rgba(15, 103, 78, .16);
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 18px 44px rgba(16, 32, 27, .08);
 }
 
 .logic-grid article::after {
   content: "";
   position: absolute;
-  right: -11px;
-  top: 40px;
+  right: -22px;
+  top: 59px;
   z-index: 1;
-  width: 22px;
-  height: 22px;
-  border-top: 1px solid var(--line);
-  border-right: 1px solid var(--line);
-  background: white;
-  transform: rotate(45deg);
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 16px solid var(--coral);
 }
 
 .logic-grid article:last-child::after {
   display: none;
 }
 
-.logic-grid span,
+.logic-number,
 .method-path span {
   display: inline-grid;
   place-items: center;
@@ -473,6 +505,58 @@ h3 {
   color: white;
   font-size: .86rem;
   font-weight: 950;
+}
+
+.logic-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  margin-bottom: 18px;
+  border: 4px solid var(--paper);
+  border-radius: 50%;
+  background: var(--green-dark);
+  box-shadow: 0 12px 28px rgba(16, 32, 27, .18);
+}
+
+.logic-grid article:nth-child(2) .logic-icon {
+  background: var(--blue);
+}
+
+.logic-grid article:nth-child(3) .logic-icon {
+  background: var(--coral);
+}
+
+.logic-grid article:nth-child(4) .logic-icon {
+  background: var(--gold);
+}
+
+.logic-icon svg {
+  width: 48px;
+  height: 48px;
+  fill: none;
+  stroke: white;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.logic-grid article:nth-child(4) .logic-icon svg {
+  stroke: #171109;
+}
+
+.logic-number {
+  position: absolute;
+  top: 76px;
+  right: 20px;
+  width: 38px;
+  height: 38px;
+  margin-bottom: 0;
+  background: white;
+  color: var(--green-dark);
+  border: 1px solid var(--line);
 }
 
 .logic-grid h3 {
@@ -1255,12 +1339,13 @@ h3 {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .logic-grid article {
-    min-height: auto;
-  }
-
+  .logic-grid::before,
   .logic-grid article::after {
     display: none;
+  }
+
+  .logic-grid article {
+    min-height: auto;
   }
 
   .brief-method-grid,
