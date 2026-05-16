@@ -110,8 +110,51 @@ const storyMapData = {
     }
   }
 };
+const pathwayData = {
+  invest: {
+    label: "ESG / CSR 預算",
+    title: "從年度永續預算開始，選擇一個有故事的投入方向",
+    body: "企業可以依預算、品牌目標與參與深度，支持地方共創、青年創作、文化內容製作或員工參與行動，讓投入一開始就連結明確的社會價值。",
+    points: [
+      "可規劃合作主題與年度期程",
+      "可對應 ESG、CSR、員工參與或品牌公益需求",
+      "可預先設計成果交付與溝通素材"
+    ]
+  },
+  field: {
+    label: "Local Co-Creation",
+    title: "把資源帶進西港，讓居民、學校與地方夥伴一起成為作者",
+    body: "合作會落在真實場域中進行：訪談、走讀、工作坊、節慶、宮廟文化、地方產業與生活記憶，都能轉化為創作素材與公共參與。",
+    points: [
+      "建立企業與地方之間的真實連結",
+      "讓文化保存不只停留在文字資料",
+      "形成可被記錄的共創過程"
+    ]
+  },
+  youth: {
+    label: "Youth Practice",
+    title: "讓學生在真實任務中完成創作、紀錄、企劃與展演",
+    body: "流行音樂產業系學生不是旁觀者，而是在場域中學習如何聽見地方、整理故事、完成作品，並把創作帶回社區與公開舞台。",
+    points: [
+      "支持青年跨域實作與作品產出",
+      "讓教育成果和地方需求接在一起",
+      "累積企業可支持的人才培力案例"
+    ]
+  },
+  brand: {
+    label: "Brand Impact",
+    title: "把合作成果整理成企業能說明、能分享、能延續的影響力素材",
+    body: "最後產出的不只是一場活動，而是一組能被企業使用的故事、紀錄與成果：可放入永續報告、品牌網站、內部溝通、社群內容與年度成果簡報。",
+    points: [
+      "可整理案例文字、照片影像與成果摘要",
+      "可支援企業永續報告與品牌溝通",
+      "讓 ESG 投入留下可延伸的公共價值"
+    ]
+  }
+};
 
 let currentStory = "temple";
+let currentPathway = "invest";
 
 function setLanguage(lang) {
   body.dataset.lang = lang;
@@ -163,3 +206,37 @@ document.querySelectorAll(".map-pin").forEach((pin) => {
 });
 
 renderStoryMap(currentStory);
+
+function renderPathway(id) {
+  const pathway = pathwayData[id];
+  const label = document.getElementById("pathway-label");
+  const title = document.getElementById("pathway-title-dynamic");
+  const bodyText = document.getElementById("pathway-body");
+  const points = document.getElementById("pathway-points");
+  const panel = document.getElementById("pathway-panel");
+  if (!pathway || !label || !title || !bodyText || !points || !panel) return;
+
+  currentPathway = id;
+  panel.classList.add("changing");
+  window.setTimeout(() => {
+    label.textContent = pathway.label;
+    title.textContent = pathway.title;
+    bodyText.textContent = pathway.body;
+    points.innerHTML = pathway.points.map((point) => `<li>${point}</li>`).join("");
+    panel.classList.remove("changing");
+  }, 120);
+
+  document.querySelectorAll(".pathway-node").forEach((node) => {
+    const active = node.dataset.pathway === id;
+    node.classList.toggle("active", active);
+    node.setAttribute("aria-selected", active ? "true" : "false");
+  });
+}
+
+document.querySelectorAll(".pathway-node").forEach((node) => {
+  node.addEventListener("click", () => {
+    renderPathway(node.dataset.pathway);
+  });
+});
+
+renderPathway(currentPathway);
