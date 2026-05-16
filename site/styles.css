@@ -1145,6 +1145,49 @@ h3 {
   font-weight: 850;
 }
 
+.esg-moment-strip {
+  padding: 28px 0;
+  background: #10261f;
+}
+
+.esg-moment-grid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr 1fr;
+  gap: 14px;
+}
+
+.esg-moment-grid figure {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  margin: 0;
+  background: var(--green-dark);
+}
+
+.esg-moment-grid img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+}
+
+.esg-moment-grid figure::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .46));
+  content: "";
+}
+
+.esg-moment-grid figcaption {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  z-index: 1;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
 .esg-split,
 .esg-impact-layout,
 .esg-download-layout,
@@ -1392,6 +1435,9 @@ h3 {
 }
 
 .partnership-grid article {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -1402,6 +1448,7 @@ h3 {
 }
 
 .partnership-grid div {
+  flex: 1;
   padding: 20px;
 }
 
@@ -1635,6 +1682,11 @@ h3 {
 .contact-box p {
   color: rgba(255, 255, 255, .84);
   font-size: 1.12rem;
+}
+
+.contact-box p a {
+  color: white;
+  font-weight: 950;
 }
 
 .contact-actions {
@@ -1910,6 +1962,7 @@ h3 {
   }
 
   .esg-proof-grid,
+  .esg-moment-grid,
   .partnership-grid {
     grid-template-columns: 1fr;
   }
