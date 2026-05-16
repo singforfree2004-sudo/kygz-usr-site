@@ -1147,7 +1147,8 @@ h3 {
 
 .esg-split,
 .esg-impact-layout,
-.esg-download-layout {
+.esg-download-layout,
+.esg-recognition-layout {
   display: grid;
   grid-template-columns: .78fr 1.22fr;
   gap: 42px;
@@ -1157,6 +1158,7 @@ h3 {
 .esg-reason-grid,
 .partnership-grid,
 .case-grid,
+.esg-recognition-grid,
 .download-cards {
   display: grid;
   gap: 16px;
@@ -1196,7 +1198,8 @@ h3 {
 .case-card p,
 .esg-impact li,
 .esg-downloads p,
-.download-cards span {
+.download-cards span,
+.esg-recognition-grid p {
   color: var(--muted);
 }
 
@@ -1445,6 +1448,56 @@ h3 {
 .case-card a {
   display: inline-flex;
   margin-top: 8px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--gold);
+  color: var(--green-dark);
+  font-weight: 950;
+}
+
+.esg-recognition {
+  background: #f6faf7;
+}
+
+.esg-recognition .section-head p:last-child {
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.8;
+}
+
+.esg-recognition-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.esg-recognition-grid article {
+  display: flex;
+  min-height: 300px;
+  padding: 24px;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: white;
+  box-shadow: 0 18px 44px rgba(16, 32, 27, .08);
+}
+
+.esg-recognition-grid span {
+  color: var(--coral);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.esg-recognition-grid h3 {
+  margin-top: 12px;
+}
+
+.esg-recognition-grid p {
+  flex: 1;
+}
+
+.esg-recognition-grid a {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 10px;
   padding-bottom: 3px;
   border-bottom: 2px solid var(--gold);
   color: var(--green-dark);
@@ -1828,6 +1881,7 @@ h3 {
   .esg-pathway-layout,
   .esg-impact-layout,
   .esg-download-layout,
+  .esg-recognition-layout,
   .brief-hero-layout,
   .brief-split {
     grid-template-columns: 1fr;
@@ -1850,6 +1904,7 @@ h3 {
   .path-grid,
   .esg-reason-grid,
   .case-grid,
+  .esg-recognition-grid,
   .download-cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2002,6 +2057,7 @@ h3 {
   .slide-grid,
   .esg-reason-grid,
   .case-grid,
+  .esg-recognition-grid,
   .download-cards {
     grid-template-columns: 1fr;
   }
