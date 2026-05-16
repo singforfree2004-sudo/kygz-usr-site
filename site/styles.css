@@ -986,7 +986,9 @@ h3 {
 }
 
 .award-card span,
-.award-card h3 {
+.award-card h3,
+.award-card p,
+.award-card a {
   margin-left: 22px;
   margin-right: 22px;
 }
@@ -996,7 +998,20 @@ h3 {
 }
 
 .award-card h3 {
+  margin-bottom: 12px;
+}
+
+.award-card p {
+  color: var(--muted);
+}
+
+.award-card a {
+  display: inline-flex;
   margin-bottom: 24px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--gold);
+  color: var(--green-dark);
+  font-weight: 950;
 }
 
 .news-list {
