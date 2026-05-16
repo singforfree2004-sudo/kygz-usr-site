@@ -43,7 +43,7 @@ const storyMapData = {
   },
   children: {
     tag: "Learning Participation",
-    image: "assets/media/children-music-camp.webp",
+    image: "assets/media/houying-classroom-activity-2025.webp",
     link: "#outcomes",
     title: {
       zh: "小朋友音樂營隊",
