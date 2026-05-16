@@ -1204,6 +1204,159 @@ h3 {
   background: #eef6fb;
 }
 
+.esg-pathway {
+  background:
+    linear-gradient(180deg, rgba(244, 232, 205, .55), rgba(255, 255, 255, 0) 52%),
+    #fbf7ee;
+}
+
+.esg-pathway-layout {
+  display: grid;
+  grid-template-columns: .74fr 1.26fr;
+  gap: 46px;
+  align-items: start;
+}
+
+.esg-pathway .section-head {
+  position: sticky;
+  top: 96px;
+}
+
+.esg-pathway .section-head p:last-child {
+  color: var(--muted);
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+
+.pathway-stage {
+  padding: 24px;
+  border: 1px solid rgba(15, 103, 78, .18);
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 24px 62px rgba(16, 32, 27, .1);
+}
+
+.pathway-rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.pathway-rail::before {
+  position: absolute;
+  top: 30px;
+  right: 8%;
+  left: 8%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--coral), var(--green-dark));
+  content: "";
+}
+
+.pathway-node {
+  position: relative;
+  min-height: 116px;
+  padding: 0 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+}
+
+.pathway-node span {
+  display: inline-flex;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  height: 62px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: var(--green-dark);
+  color: white;
+  box-shadow: 0 12px 28px rgba(16, 32, 27, .18);
+  font-size: .95rem;
+  font-weight: 950;
+}
+
+.pathway-node strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.pathway-node:hover span,
+.pathway-node:focus-visible span,
+.pathway-node.active span {
+  background: var(--coral);
+  transform: translateY(-4px);
+}
+
+.pathway-node:focus-visible {
+  outline: 3px solid rgba(205, 89, 53, .35);
+  outline-offset: 2px;
+}
+
+.pathway-panel {
+  margin-top: 20px;
+  padding: 30px;
+  background: var(--green-dark);
+  color: white;
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.pathway-panel.changing {
+  opacity: .2;
+  transform: translateY(8px);
+}
+
+.pathway-label {
+  display: inline-flex;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, .12);
+  color: var(--gold);
+  font-size: .8rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.pathway-panel h3 {
+  max-width: 760px;
+  margin: 0;
+  color: white;
+  font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+}
+
+.pathway-panel p:not(.pathway-label) {
+  max-width: 760px;
+  color: rgba(255, 255, 255, .86);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.pathway-points {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pathway-points li {
+  min-height: 96px;
+  padding: 16px;
+  background: rgba(255, 255, 255, .1);
+  color: rgba(255, 255, 255, .9);
+  font-weight: 850;
+  line-height: 1.55;
+}
+
 .esg-tag-grid,
 .sdg-row {
   display: flex;
@@ -1672,6 +1825,7 @@ h3 {
   .esg-entry-layout,
   .esg-hero-layout,
   .esg-split,
+  .esg-pathway-layout,
   .esg-impact-layout,
   .esg-download-layout,
   .brief-hero-layout,
@@ -1733,6 +1887,14 @@ h3 {
   .story-map-panel,
   .story-map-base {
     min-height: 560px;
+  }
+
+  .esg-pathway .section-head {
+    position: static;
+  }
+
+  .pathway-points {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1850,6 +2012,43 @@ h3 {
 
   .song-card {
     min-height: 96px;
+  }
+
+  .pathway-stage {
+    padding: 16px;
+  }
+
+  .pathway-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .pathway-rail::before {
+    top: 30px;
+    right: auto;
+    bottom: 70px;
+    left: 31px;
+    width: 3px;
+    height: auto;
+    background: linear-gradient(180deg, var(--gold), var(--coral), var(--green-dark));
+  }
+
+  .pathway-node {
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 14px;
+    align-items: center;
+    min-height: 78px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .pathway-node strong {
+    margin-top: 0;
+    font-size: 1.06rem;
+  }
+
+  .pathway-panel {
+    padding: 24px 20px;
   }
 
   .metrics div {
