@@ -109,7 +109,7 @@ button:focus-visible {
 }
 
 .brand strong,
-brand small {
+.brand small {
   display: block;
   line-height: 1.1;
 }
