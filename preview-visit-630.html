@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>跨樂尬陣｜6/30 教育部委員訪視簡報 Demo</title>
+  <meta name="description" content="跨樂尬陣 6/30 教育部委員訪視前導簡報 HTML demo。" />
+  <style>
+:root {
+  --ink: #15211d;
+  --muted: #5b6762;
+  --line: #d9dfda;
+  --paper: #f6f7f4;
+  --white: #ffffff;
+  --green: #0f5d4c;
+  --green-dark: #07362e;
+  --gold: #c8952f;
+  --soft-gold: #efe4c8;
+  --shadow: 0 22px 70px rgba(16, 32, 27, .12);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font);
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+button {
+  font: inherit;
+}
+
+.deck-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: minmax(210px, auto) 1fr auto;
+  gap: 24px;
+  align-items: center;
+  min-height: 70px;
+  padding: 12px 28px;
+  border-bottom: 1px solid rgba(21, 33, 29, .12);
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.brand-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--green);
+  color: var(--green);
+  font-size: .78rem;
+  font-weight: 950;
+}
+
+.brand strong,
+.brand small {
+  display: block;
+  line-height: 1.15;
+}
+
+.brand strong {
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.brand small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.slide-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.slide-nav a {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.slide-nav a.active,
+.slide-nav a:hover {
+  border-color: var(--green);
+  background: #f0f5f1;
+  color: var(--green-dark);
+}
+
+.timer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 850;
+}
+
+.timer b {
+  padding: 5px 9px;
+  background: var(--green-dark);
+  color: white;
+  font-size: .75rem;
+}
+
+.deck {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+
+.slide {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  padding: 104px clamp(28px, 5vw, 72px) 42px;
+  scroll-snap-align: start;
+}
+
+.slide::before {
+  position: absolute;
+  inset: 70px 0 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(21, 33, 29, .045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(21, 33, 29, .04) 1px, transparent 1px);
+  background-size: 90px 90px;
+  content: "";
+  pointer-events: none;
+}
+
+.slide-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, .82fr);
+  gap: clamp(32px, 5vw, 76px);
+  align-items: center;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+}
+
+.cover-grid,
+.media-grid {
+  grid-template-columns: minmax(0, .94fr) minmax(420px, 1fr);
+}
+
+.reverse {
+  grid-template-columns: minmax(420px, 1fr) minmax(0, .94fr);
+}
+
+.reverse .slide-copy {
+  order: 1;
+}
+
+.reverse .large-photo {
+  order: 2;
+}
+
+.section-head {
+  align-self: end;
+  width: min(100%, 1080px);
+  margin: 0 auto 34px;
+}
+
+.eyebrow {
+  margin: 0 0 13px;
+  color: var(--green);
+  font-size: .86rem;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: clamp(4.2rem, 10vw, 9rem);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: clamp(2.1rem, 4.6vw, 4.4rem);
+  font-weight: 680;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.18rem;
+  line-height: 1.28;
+}
+
+.cover-line,
+.closing-line,
+.thesis {
+  max-width: 820px;
+  color: var(--green-dark);
+  font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.lead {
+  max-width: 720px;
+  color: #40504a;
+  font-size: clamp(1.02rem, 1.45vw, 1.28rem);
+  font-weight: 650;
+}
+
+.lead.dark {
+  color: var(--muted);
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .72);
+}
+
+.meta-row span {
+  min-width: 150px;
+  padding: 14px 18px;
+  border-right: 1px solid var(--line);
+  color: #2f3b36;
+  font-weight: 900;
+}
+
+.meta-row span:last-child {
+  border-right: 0;
+}
+
+.hero-photo,
+.large-photo {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.hero-photo {
+  min-height: 560px;
+}
+
+.hero-photo img {
+  height: 470px;
+}
+
+.hero-photo figcaption {
+  padding: 18px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .95rem;
+  font-weight: 760;
+}
+
+.large-photo {
+  height: min(66vh, 620px);
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: white;
+  list-style: none;
+  box-shadow: var(--shadow);
+}
+
+.timeline li {
+  min-height: 360px;
+  padding: 26px 22px;
+  border-right: 1px solid var(--line);
+}
+
+.timeline li:last-child {
+  border-right: 0;
+}
+
+.timeline span,
+.process span,
+.capability-map span,
+.recognition-list span {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--gold);
+  font-size: .86rem;
+  font-weight: 950;
+}
+
+.timeline strong,
+.process strong,
+.capability-map strong,
+.recognition-list strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--green-dark);
+  font-size: 1.25rem;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.timeline p,
+.process p,
+.capability-map p,
+.recognition-list p,
+.point-list,
+.three-points p {
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.quote-panel {
+  padding: clamp(28px, 4vw, 52px);
+  border-left: 6px solid var(--green);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.quote-panel h2 {
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+}
+
+.proof-list,
+.recognition-list {
+  display: grid;
+  gap: 14px;
+}
+
+.proof-list article,
+.recognition-list article,
+.speech-card,
+.watch-frame {
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .82);
+}
+
+.proof-list b,
+.three-points b,
+.speech-card span,
+.watch-frame span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--green);
+  font-size: .9rem;
+  font-weight: 950;
+}
+
+.point-list {
+  display: grid;
+  gap: 14px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.point-list li {
+  padding-left: 22px;
+  border-left: 4px solid var(--gold);
+}
+
+.capability-map,
+.process,
+.outcome-grid,
+.three-points {
+  display: grid;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+}
+
+.capability-map,
+.process {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.capability-map article,
+.process article {
+  min-height: 250px;
+  padding: 30px 28px;
+  border-right: 1px solid var(--line);
+}
+
+.capability-map article:last-child,
+.process article:last-child {
+  border-right: 0;
+}
+
+.thesis {
+  width: min(100%, 1040px);
+  margin: 34px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.video-placeholder {
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(to right, rgba(15, 93, 76, .08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 93, 76, .08) 1px, transparent 1px),
+    #ffffff;
+  background-size: 54px 54px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.play-mark {
+  width: 96px;
+  height: 96px;
+  border: 2px solid var(--green);
+  clip-path: polygon(18% 8%, 18% 92%, 88% 50%);
+  background: var(--green);
+}
+
+.video-placeholder p {
+  margin: 18px 0 0;
+  color: var(--green-dark);
+  font-size: 1.7rem;
+  font-weight: 950;
+}
+
+.video-placeholder span {
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.speech-card p {
+  margin: 0;
+  color: var(--green-dark);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.three-points {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.three-points article {
+  min-height: 170px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: white;
+}
+
+.note {
+  margin-top: 22px;
+  padding: 13px 16px;
+  border-left: 4px solid var(--gold);
+  background: var(--soft-gold);
+  color: #5b4a25;
+  font-weight: 800;
+}
+
+.outcome-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.outcome-grid article {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.outcome-grid img {
+  height: 280px;
+}
+
+.outcome-grid h3,
+.outcome-grid p {
+  padding: 0 22px;
+}
+
+.outcome-grid h3 {
+  margin-top: 22px;
+  color: var(--green-dark);
+  font-size: 1.45rem;
+}
+
+.outcome-grid p {
+  padding-bottom: 22px;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.recognition-list article {
+  min-height: 150px;
+}
+
+.watch-frame {
+  margin-top: 28px;
+}
+
+.watch-frame p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 720;
+}
+
+.dock {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 11;
+  display: flex;
+  gap: 8px;
+}
+
+.dock button {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--green);
+  background: rgba(255, 255, 255, .92);
+  color: var(--green-dark);
+  font-size: 2rem;
+  font-weight: 650;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.dock button:hover {
+  background: var(--green-dark);
+  color: white;
+}
+
+@media (max-width: 980px) {
+  .deck-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .slide-nav {
+    display: none;
+  }
+
+  .slide {
+    min-height: auto;
+    padding: 96px 20px 38px;
+  }
+
+  .slide-grid,
+  .cover-grid,
+  .media-grid,
+  .reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .reverse .slide-copy,
+  .reverse .large-photo {
+    order: initial;
+  }
+
+  .hero-photo,
+  .large-photo,
+  .video-placeholder {
+    min-height: 360px;
+    height: auto;
+  }
+
+  .hero-photo img,
+  .large-photo img {
+    height: 360px;
+  }
+
+  .timeline,
+  .capability-map,
+  .process,
+  .outcome-grid,
+  .three-points {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline li,
+  .capability-map article,
+  .process article {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .timeline li:last-child,
+  .capability-map article:last-child,
+  .process article:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .deck-header,
+  .dock {
+    display: none;
+  }
+
+  .deck {
+    height: auto;
+    overflow: visible;
+  }
+
+  .slide {
+    min-height: 100vh;
+    break-after: page;
+    padding: 38px;
+  }
+
+  .slide::before {
+    inset: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+  <header class="deck-header">
+    <a class="brand" href="#slide-01" aria-label="跨樂尬陣簡報首頁">
+      <span class="brand-mark">USR</span>
+      <span>
+        <strong>跨樂尬陣</strong>
+        <small>教育部委員訪視前導簡報</small>
+      </span>
+    </a>
+    <nav class="slide-nav" aria-label="簡報導覽">
+      <a href="#slide-01">01</a>
+      <a href="#slide-02">02</a>
+      <a href="#slide-03">03</a>
+      <a href="#slide-04">04</a>
+      <a href="#slide-05">05</a>
+      <a href="#slide-06">06</a>
+      <a href="#slide-07">07</a>
+      <a href="#slide-08">08</a>
+      <a href="#slide-09">09</a>
+      <a href="#slide-10">10</a>
+      <a href="#slide-11">11</a>
+      <a href="#slide-12">12</a>
+    </nav>
+    <div class="timer" aria-label="建議簡報時間">
+      <span id="progressLabel">01 / 12</span>
+      <b>15 min</b>
+    </div>
+  </header>
+
+  <main class="deck" id="deck">
+    <section class="slide cover" id="slide-01" data-title="封面">
+      <div class="slide-grid cover-grid">
+        <div class="slide-copy">
+          <p class="eyebrow">USR Field Visit · Sigang · Music</p>
+          <h1>跨樂尬陣</h1>
+          <p class="cover-line">用流行音樂讓西港地方文化被聽見</p>
+          <p class="lead">教育部委員訪視簡報｜南臺科技大學流行音樂產業系</p>
+          <div class="meta-row">
+            <span>2026.06.30</span>
+            <span>臺南西港</span>
+            <span>15 分鐘前導</span>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="assets/media/sesame-festival-performance.webp" alt="" />
+          <figcaption>從場域、居民與學生共演開始，讓地方故事成為可被聽見的公共作品。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide route" id="slide-02" data-title="今日參訪動線">
+      <div class="section-head">
+        <p class="eyebrow">Visit Flow</p>
+        <h2>今日參訪不是看單點成果，而是看一段從簡介走向現場的共創歷程。</h2>
+      </div>
+      <ol class="timeline">
+        <li><span>15 min</span><strong>計畫簡介</strong><p>建立西港場域、音樂方法與成果觀看框架。</p></li>
+        <li><span>1-2 min</span><strong>計畫影片</strong><p>用影像快速帶入學生、居民與地方現場。</p></li>
+        <li><span>2 min</span><strong>學生短唱與短講</strong><p>讓委員聽見學生的學習轉變與真實聲音。</p></li>
+        <li><span>3 min</span><strong>AR 成果</strong><p>看地方文化如何被轉譯為互動學習。</p></li>
+        <li><span>30 min</span><strong>場域共演</strong><p>在現場驗證學生、居民與音樂作品如何相遇。</p></li>
+        <li><span>30 min</span><strong>白埕物所討論</strong><p>回到利害關係人對話，討論留下什麼與下一步。</p></li>
+      </ol>
+    </section>
+
+    <section class="slide statement" id="slide-03" data-title="計畫一句話">
+      <div class="slide-grid">
+        <div class="quote-panel">
+          <p class="eyebrow">Core Statement</p>
+          <h2>跨樂尬陣是一個以流行音樂為方法、以西港為場域的大學社會責任計畫。</h2>
+        </div>
+        <div class="proof-list">
+          <article><b>學生</b><p>從課堂走進地方，學習訪談、創作、錄音、展演與社會溝通。</p></article>
+          <article><b>居民</b><p>不只是被服務者，而是故事提供者、共同創作者與成果見證者。</p></article>
+          <article><b>地方</b><p>西港的聲音、記憶與文化脈絡，被整理成歌曲、Podcast、影像與互動作品。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide place" id="slide-04" data-title="為什麼是西港">
+      <div class="slide-grid media-grid">
+        <figure class="large-photo">
+          <img src="assets/media/sigang-qingan-temple.webp" alt="" />
+        </figure>
+        <div class="slide-copy">
+          <p class="eyebrow">Why Sigang</p>
+          <h2>西港不是背景，而是計畫長期工作的地方。</h2>
+          <ul class="point-list">
+            <li>廟宇、香科、胡麻與街區記憶構成深厚的地方文化層次。</li>
+            <li>地方故事需要新的轉譯方式，讓年輕世代能理解、參與並延續。</li>
+            <li>計畫把大學專業放進真實場域，讓學習成果回到地方被看見。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide discipline" id="slide-05" data-title="為什麼是流行音樂">
+      <div class="section-head">
+        <p class="eyebrow">Why Popular Music</p>
+        <h2>流行音樂不只是唱歌，而是一套把故事變成作品、現場與傳播的整合能力。</h2>
+      </div>
+      <div class="capability-map">
+        <article><span>01</span><strong>採集</strong><p>地方訪談、聲音紀錄、故事理解。</p></article>
+        <article><span>02</span><strong>創作</strong><p>詞曲、編曲、錄音、影像與教材。</p></article>
+        <article><span>03</span><strong>展演</strong><p>舞台、共演、互動體驗與現場溝通。</p></article>
+        <article><span>04</span><strong>傳播</strong><p>Podcast、影片、社群、新聞與永續敘事。</p></article>
+      </div>
+      <p class="thesis">我們不是到地方辦音樂活動，而是用流行音樂的方法，把地方故事轉譯成可以被聽見、被參與、被傳下去的公共作品。</p>
+    </section>
+
+    <section class="slide method" id="slide-06" data-title="我們怎麼做">
+      <div class="section-head">
+        <p class="eyebrow">Method</p>
+        <h2>從進入場域到公開展演，計畫把學習、創作與地方關係串成一條可延續的工作流程。</h2>
+      </div>
+      <div class="process">
+        <article><span>01</span><strong>進入場域</strong><p>走讀、訪談、認識地方文化與利害關係人。</p></article>
+        <article><span>02</span><strong>共創作品</strong><p>學生與居民共同把故事轉譯為歌曲、影像與教材。</p></article>
+        <article><span>03</span><strong>公開展演</strong><p>讓成果走出課堂，在節慶、社區與校內外場域被聽見。</p></article>
+        <article><span>04</span><strong>保存再利用</strong><p>以 Podcast、影片、AR、網站與教材延伸成果生命。</p></article>
+      </div>
+    </section>
+
+    <section class="slide video" id="slide-07" data-title="影片播放頁">
+      <div class="slide-grid media-grid">
+        <div class="video-placeholder">
+          <div class="play-mark"></div>
+          <p>計畫影片占位</p>
+          <span>待 Jay 確認 YouTube 或本機影片檔</span>
+        </div>
+        <div class="slide-copy">
+          <p class="eyebrow">Project Film</p>
+          <h2>這支影片不是活動紀錄，而是讓委員看見地方、學生與音樂如何在同一個工作現場相遇。</h2>
+          <p class="lead dark">影片之後，接學生短唱與短講，把影像中的學習轉變帶回到人的聲音。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide student" id="slide-08" data-title="學生短唱與短講">
+      <div class="slide-grid media-grid reverse">
+        <div class="slide-copy">
+          <p class="eyebrow">Student Voice</p>
+          <h2>學生要講真實轉變，不需要講成完整報告。</h2>
+          <div class="speech-card">
+            <span>短講節奏</span>
+            <p>我原本以為……後來我發現……我做出了……</p>
+          </div>
+          <ul class="point-list">
+            <li>從課堂能力走向地方溝通。</li>
+            <li>從完成作品走向理解地方。</li>
+            <li>從表演者轉成共同創作者。</li>
+          </ul>
+        </div>
+        <figure class="large-photo">
+          <img src="assets/media/teacher-vocal-coaching.webp" alt="" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="slide ar" id="slide-09" data-title="AR 遊戲成果">
+      <div class="slide-grid media-grid">
+        <figure class="large-photo">
+          <img src="assets/media/qingan-ar-showcase-2025.webp" alt="" />
+        </figure>
+        <div class="slide-copy">
+          <p class="eyebrow">AR Learning</p>
+          <h2>AR 不是炫技，而是讓地方文化變成可互動、可學習、可再利用的入口。</h2>
+          <div class="three-points">
+            <article><b>問題</b><p>地方文化不容易只靠文字被年輕使用者理解。</p></article>
+            <article><b>參與</b><p>以互動任務與場域線索，引導使用者主動探索。</p></article>
+            <article><b>延伸</b><p>未來可結合導覽、教育推廣與地方活動。</p></article>
+          </div>
+          <p class="note">待補：AR 實際畫面、操作流程、成果數據或學生團隊說明。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide outcomes" id="slide-10" data-title="成果總覽">
+      <div class="section-head">
+        <p class="eyebrow">Outcomes</p>
+        <h2>成果不只是一串活動數量，而是教育、地方與公共能見度三層累積。</h2>
+      </div>
+      <div class="outcome-grid">
+        <article>
+          <img src="assets/media/community-walk.webp" alt="" />
+          <h3>教育成果</h3>
+          <p>學生從課堂走進地方，學會訪談、創作、溝通、展演與社會實作。</p>
+        </article>
+        <article>
+          <img src="assets/media/sigang-mothers-podcast.webp" alt="" />
+          <h3>地方成果</h3>
+          <p>西港故事、居民記憶與場域聲音被整理成歌曲、Podcast、影像、AR 與音樂劇。</p>
+        </article>
+        <article>
+          <img src="assets/media/singapore-showcase-2025.webp" alt="" />
+          <h3>公共成果</h3>
+          <p>透過得獎、媒體報導、國際交流與 ESG 連結，讓地方成果被外部看見。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide recognition" id="slide-11" data-title="公開肯定與影響">
+      <div class="slide-grid">
+        <div class="slide-copy">
+          <p class="eyebrow">Recognition</p>
+          <h2>委員需要看到好故事，也需要看到可信任的公開紀錄。</h2>
+          <p class="lead dark">獎項、媒體報導與學校新聞，是計畫執行基礎、公共能見度與社會影響力的第三方佐證。</p>
+        </div>
+        <div class="recognition-list">
+          <article><span>01</span><strong>台灣永續行動獎銅獎</strong><p>以藝術共融實踐 SDG10，讓地方文化、青年學習與社會共融成果進入永續專業社群。</p></article>
+          <article><span>02</span><strong>《遠見》USR 大學社會責任獎肯定</strong><p>透過公開評選與報導，讓在地共融、音樂創作與大學社會責任成果被更多人看見。</p></article>
+          <article><span>03</span><strong>Cheers《工作人》報導</strong><p>從大學社會責任角度介紹西港行動，協助外部夥伴理解計畫價值。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide closing" id="slide-12" data-title="等一下請看什麼">
+      <div class="slide-grid cover-grid">
+        <div class="slide-copy">
+          <p class="eyebrow">What To See Next</p>
+          <h2>等一下大家看到的共演，不是單次成果表演。</h2>
+          <p class="closing-line">它是學生、居民、地方故事和音樂作品，在同一個場域裡一起被看見。</p>
+          <div class="watch-frame">
+            <span>請看見</span>
+            <p>學生不是來服務地方，而是和居民共同創作；婆婆媽媽不是被服務者，而是共同創作者；音樂不是活動包裝，而是讓地方記憶被說出來、唱出來、留下來的方法。</p>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="assets/media/baicheng-old-house.webp" alt="" />
+          <figcaption>回到白埕物所，讓計畫成果進入討論，也讓下一步從地方現場長出來。</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <aside class="dock" aria-label="簡報控制">
+    <button type="button" id="prevBtn" aria-label="上一頁">‹</button>
+    <button type="button" id="nextBtn" aria-label="下一頁">›</button>
+  </aside>
+
+  <script>
+const slides = Array.from(document.querySelectorAll(".slide"));
+const navLinks = Array.from(document.querySelectorAll(".slide-nav a"));
+const progressLabel = document.querySelector("#progressLabel");
+const prevBtn = document.querySelector("#prevBtn");
+const nextBtn = document.querySelector("#nextBtn");
+
+let currentIndex = 0;
+
+function setActive(index) {
+  currentIndex = Math.max(0, Math.min(slides.length - 1, index));
+  const current = slides[currentIndex];
+  navLinks.forEach((link, linkIndex) => {
+    link.classList.toggle("active", linkIndex === currentIndex);
+  });
+  progressLabel.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+  document.title = `${current.dataset.title}｜跨樂尬陣訪視簡報 Demo`;
+}
+
+function goTo(index) {
+  const next = slides[Math.max(0, Math.min(slides.length - 1, index))];
+  next.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+const observer = new IntersectionObserver((entries) => {
+  const visible = entries
+    .filter((entry) => entry.isIntersecting)
+    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+  if (!visible) return;
+  setActive(slides.indexOf(visible.target));
+}, {
+  root: document.querySelector("#deck"),
+  threshold: [0.45, 0.65, 0.85]
+});
+
+slides.forEach((slide) => observer.observe(slide));
+
+prevBtn.addEventListener("click", () => goTo(currentIndex - 1));
+nextBtn.addEventListener("click", () => goTo(currentIndex + 1));
+
+document.addEventListener("keydown", (event) => {
+  if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) {
+    event.preventDefault();
+    goTo(currentIndex + 1);
+  }
+
+  if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+    event.preventDefault();
+    goTo(currentIndex - 1);
+  }
+
+  if (event.key === "Home") {
+    event.preventDefault();
+    goTo(0);
+  }
+
+  if (event.key === "End") {
+    event.preventDefault();
+    goTo(slides.length - 1);
+  }
+});
+
+setActive(0);
+
+</script>
+</body>
+</html>
