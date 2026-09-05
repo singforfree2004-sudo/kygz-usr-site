@@ -1,11 +1,3 @@
-const year = document.getElementById("year");
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
-const body = document.body;
-const toggle = document.querySelector(".lang-toggle");
-const savedLanguage = localStorage.getItem("kygz-language");
 const storyMapData = {
   temple: {
     tag: "Local Heritage",
@@ -94,8 +86,8 @@ const storyMapData = {
   },
   singapore: {
     tag: "Asia-Pacific Link",
-    image: "assets/media/singapore-xiaodujia.webp",
-    link: "#contact",
+    image: "assets/media/singapore-vlog-2026.jpg",
+    link: "#international",
     title: {
       zh: "從西港到新加坡",
       en: "From Sigang to Singapore"
@@ -110,133 +102,94 @@ const storyMapData = {
     }
   }
 };
-const pathwayData = {
-  invest: {
-    label: "ESG / CSR 預算",
-    title: "從年度永續預算開始，選擇一個有故事的支持方向",
-    body: "企業可以依預算、品牌目標與參與深度，支持地方共創、青年創作、文化內容製作或員工參與行動，讓支持一開始就連結明確的社會價值。",
-    points: [
-      "可規劃合作主題與年度期程",
-      "可對應 ESG、CSR、員工參與或品牌公益需求",
-      "從一開始就釐清希望留下的成果"
-    ]
-  },
-  field: {
-    label: "Local Co-Creation",
-    title: "把資源帶進西港，讓居民、學校與地方夥伴一起參與創作",
-    body: "合作會落在真實場域中進行：訪談、走讀、工作坊、節慶、宮廟文化、地方產業與生活記憶，都能轉化為創作素材與公共參與。",
-    points: [
-      "建立企業與地方之間的真實連結",
-      "讓文化保存不只停留在文字資料",
-      "形成可被記錄的共創過程"
-    ]
-  },
-  youth: {
-    label: "Youth Practice",
-    title: "讓學生在真實任務中練習創作、紀錄、企劃與展演",
-    body: "流行音樂產業系學生不是旁觀者，而是在場域中學習如何聽見地方、整理故事、完成作品，並把創作帶回社區與公開舞台。",
-    points: [
-      "支持青年跨域實作與作品產出",
-      "讓教育成果和地方需求接在一起",
-      "累積企業可參與的人才培力案例"
-    ]
-  },
-  brand: {
-    label: "Brand Impact",
-    title: "讓企業的支持被地方記住，也被更多人看見",
-    body: "合作結束後，留下的不只是活動照片，而是一段有場域、有參與者、有作品的故事。企業可以把這段故事帶回組織內部，也可以對外說明：這份支持如何陪伴青年、地方與文化一起往前走。",
-    points: [
-      "留下真實可感的合作故事",
-      "讓品牌溝通有畫面，也有溫度",
-      "把一次支持延伸成長期關係"
-    ]
-  }
-};
 
-let currentStory = "temple";
-let currentPathway = "invest";
-
-function setLanguage(lang) {
-  body.dataset.lang = lang;
-  document.documentElement.lang = lang === "en" ? "en" : "zh-Hant";
-  localStorage.setItem("kygz-language", lang);
-  renderStoryMap(currentStory);
-}
-
+const body = document.body;
+body.classList.add('js');
+const toggle = document.querySelector('.lang-toggle');
+const menu = document.querySelector('.menu-toggle');
+const navigation = document.getElementById('site-navigation');
+let currentStory = 'temple';
+let currentLanguage = 'zh';
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
+const localizedElements = Array.from(document.querySelectorAll('[data-alt-en], [data-title-en]'));
+localizedElements.forEach(el => {
+  if (el.hasAttribute('alt')) el.dataset.altZh = el.getAttribute('alt');
+  if (el.hasAttribute('title')) el.dataset.titleZh = el.getAttribute('title');
+});
 function renderStoryMap(id) {
   const story = storyMapData[id];
-  const image = document.getElementById("story-map-image");
-  const tag = document.getElementById("story-map-tag");
-  const title = document.getElementById("story-map-title");
-  const bodyText = document.getElementById("story-map-body");
-  const chips = document.getElementById("story-map-chips");
-  const link = document.getElementById("story-map-link");
-  if (!story || !image || !tag || !title || !bodyText || !chips || !link) return;
-
-  const lang = body.dataset.lang === "en" ? "en" : "zh";
+  const image = document.getElementById('story-map-image');
+  if (!story || !image) return;
   currentStory = id;
+  const lang = currentLanguage;
+  const tagNames = {temple:['地方文化','Local heritage'],baicheng:['地方平台','Local platform'],children:['參與學習','Learning together'],podcast:['居民聲音','Resident voices'],musical:['公共展演','Public performance'],singapore:['亞太交流','Asia-Pacific exchange']};
   image.src = story.image;
-  tag.textContent = story.tag;
-  title.textContent = story.title[lang];
-  bodyText.textContent = story.body[lang];
-  chips.innerHTML = story.chips[lang].map((chip) => `<span>${chip}</span>`).join("");
+  image.alt = story.title[lang];
+  document.getElementById('story-map-tag').textContent = tagNames[id][lang === 'en' ? 1 : 0];
+  document.getElementById('story-map-title').textContent = story.title[lang];
+  document.getElementById('story-map-body').textContent = story.body[lang];
+  const chips = document.getElementById('story-map-chips');
+  chips.replaceChildren(...story.chips[lang].map(label => {const span = document.createElement('span'); span.textContent = label; return span;}));
+  const link = document.getElementById('story-map-link');
   link.href = story.link;
-  link.target = story.link.startsWith("http") ? "_blank" : "";
-  link.rel = story.link.startsWith("http") ? "noreferrer" : "";
-
-  document.querySelectorAll(".map-pin").forEach((pin) => {
-    pin.classList.toggle("active", pin.dataset.story === id);
+  if (story.link.startsWith('http')) {link.target = '_blank'; link.rel = 'noopener noreferrer';}
+  else {link.removeAttribute('target');link.removeAttribute('rel');}
+  document.querySelectorAll('.map-pin').forEach(pin => {
+    pin.classList.toggle('active',pin.dataset.story === id);
+    pin.setAttribute('aria-pressed',String(pin.dataset.story === id));
   });
 }
-
-if (savedLanguage === "en" || savedLanguage === "zh") {
-  setLanguage(savedLanguage);
+function setLanguage(lang) {
+  currentLanguage = lang === 'en' ? 'en' : 'zh';
+  body.dataset.lang = currentLanguage;
+  document.documentElement.lang = currentLanguage === 'en' ? 'en' : 'zh-Hant-TW';
+  try {localStorage.setItem('kygz-language',currentLanguage);} catch (_) { /* Language works even when storage is disabled. */ }
+  if (toggle) toggle.setAttribute('aria-label',currentLanguage === 'en' ? '切換為繁體中文' : 'Switch to English');
+  if (navigation) navigation.setAttribute('aria-label',currentLanguage === 'en' ? 'Main navigation' : '主要導覽');
+  localizedElements.forEach(el => {
+    if (el.hasAttribute('alt')) el.alt = currentLanguage === 'en' ? el.dataset.altEn : el.dataset.altZh;
+    if (el.hasAttribute('title')) el.title = currentLanguage === 'en' ? el.dataset.titleEn : el.dataset.titleZh;
+  });
+  document.querySelectorAll('[data-video]').forEach(el => {
+    el.setAttribute('aria-label',(currentLanguage === 'en' ? 'Play: ' : '播放：') + (currentLanguage === 'en' ? el.dataset.titleEn : el.dataset.titleZh));
+  });
+  document.querySelectorAll('[data-label-en]').forEach(el => {
+    if (!el.dataset.labelZh) el.dataset.labelZh = el.getAttribute('aria-label');
+    el.setAttribute('aria-label',currentLanguage === 'en' ? el.dataset.labelEn : el.dataset.labelZh);
+  });
+  const esg = body.classList.contains('esg-page');
+  document.title = currentLanguage === 'en' ? (esg ? 'ESG Partnerships | Inclusive Harmony in Sigang' : 'Inclusive Harmony in Sigang | Local Stories, Shared with the World') : (esg ? 'ESG 合作｜跨樂尬陣' : '跨樂尬陣｜讓西港的故事，被世界聽見');
+  renderStoryMap(currentStory);
 }
-
-if (toggle) {
-  toggle.addEventListener("click", () => {
-    setLanguage(body.dataset.lang === "en" ? "zh" : "en");
-  });
+let savedLanguage;
+try { savedLanguage = localStorage.getItem('kygz-language'); } catch (_) {}
+setLanguage(savedLanguage === 'en' ? 'en' : 'zh');
+if (toggle) toggle.addEventListener('click',() => setLanguage(currentLanguage === 'en' ? 'zh' : 'en'));
+document.querySelectorAll('.map-pin').forEach(pin => pin.addEventListener('click',() => renderStoryMap(pin.dataset.story)));
+function closeMenu(restoreFocus = false) {
+  if (!menu || !navigation) return;
+  navigation.classList.remove('is-open');
+  menu.setAttribute('aria-expanded','false');
+  if (restoreFocus) menu.focus();
 }
-
-document.querySelectorAll(".map-pin").forEach((pin) => {
-  pin.addEventListener("click", () => {
-    renderStoryMap(pin.dataset.story);
+if (menu && navigation) {
+  menu.addEventListener('click',() => {
+    const open = menu.getAttribute('aria-expanded') !== 'true';
+    menu.setAttribute('aria-expanded',String(open));
+    navigation.classList.toggle('is-open',open);
   });
-});
-
-renderStoryMap(currentStory);
-
-function renderPathway(id) {
-  const pathway = pathwayData[id];
-  const label = document.getElementById("pathway-label");
-  const title = document.getElementById("pathway-title-dynamic");
-  const bodyText = document.getElementById("pathway-body");
-  const points = document.getElementById("pathway-points");
-  const panel = document.getElementById("pathway-panel");
-  if (!pathway || !label || !title || !bodyText || !points || !panel) return;
-
-  currentPathway = id;
-  panel.classList.add("changing");
-  window.setTimeout(() => {
-    label.textContent = pathway.label;
-    title.textContent = pathway.title;
-    bodyText.textContent = pathway.body;
-    points.innerHTML = pathway.points.map((point) => `<li>${point}</li>`).join("");
-    panel.classList.remove("changing");
-  }, 120);
-
-  document.querySelectorAll(".pathway-node").forEach((node) => {
-    const active = node.dataset.pathway === id;
-    node.classList.toggle("active", active);
-    node.setAttribute("aria-selected", active ? "true" : "false");
-  });
+  navigation.querySelectorAll('a').forEach(a => a.addEventListener('click',() => closeMenu()));
+  document.addEventListener('keydown',event => {if (event.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') closeMenu(true);});
 }
-
-document.querySelectorAll(".pathway-node").forEach((node) => {
-  node.addEventListener("click", () => {
-    renderPathway(node.dataset.pathway);
-  });
-});
-
-renderPathway(currentPathway);
+function revealHashTarget() {
+  if (!location.hash) return;
+  let id;
+  try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) {return;}
+  const target = document.getElementById(id);
+  if (!target) return;
+  const parent = target.closest('details');
+  if (parent && !parent.open) {parent.open = true; target.scrollIntoView();}
+}
+window.addEventListener('hashchange',revealHashTarget);
+revealHashTarget();
