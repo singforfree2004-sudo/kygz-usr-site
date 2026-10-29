@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id), {projects,items}=window.EXHIBIT;
 const names={photo:'照片',video:'影片',music:'音樂',news:'新聞',award:'獎項'};
 const offline=!!window.OFFLINE_ONLY;
 const chapters={all:'計畫總覽',goal:'計畫目標',method:'實踐方法',results:'影音成果',awards:'得獎肯定'};
-const state={project:'usr',section:'all',type:'all',id:items[0].id,auto:true,mixed:!offline,sound:false,lastAction:Date.now(),playing:false,listenUntil:0,deadline:Date.now()+12000,span:12000,token:0,player:null,watchdog:null,gallery:null,videoDeadlineSet:false,lastPosition:0,lastAdvance:Date.now()};
+const state={project:'usr',section:'all',type:'all',id:items[0].id,auto:true,mixed:!offline,sound:false,lastAction:Date.now(),playing:false,listenUntil:0,deadline:Date.now()+3000,span:3000,token:0,player:null,watchdog:null,gallery:null,videoDeadlineSet:false,lastPosition:0,lastAdvance:Date.now()};
 const current=()=>items.find(x=>x.id===state.id);
 const visibleItems=()=>items.filter(x=>x.project===state.project&&(state.section==='all'||x.section===state.section)&&(state.type==='all'||x.type===state.type));
 function el(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;}
@@ -25,7 +25,7 @@ function show(id,launch=false){
  const img=el('img');img.src=item.image;img.alt=item.title;img.onerror=()=>{img.onerror=null;img.src='assets/musical-residents-training.webp';};$('media').append(img);if(item.type==='photo')img.className='moving-photo';
  if(item.type==='photo'){img.onclick=()=>{manual();$('large-photo').src=item.image;$('large-photo').alt=item.title;$('large-caption').textContent=item.title+'｜'+item.date;$('lightbox').showModal();};}
  if(item.type==='video'||item.type==='music'){const overlay=el('div',undefined,'media-launch'),b=el('button',item.type==='video'?'▶ 播放影片':'♫ 開啟 StreetVoice 播放器','launch-button');b.onclick=()=>{manual();activate(item);};overlay.append(b);$('media').append(overlay);if(launch)activate(item);}
- state.span=12000;state.deadline=Date.now()+state.span;rail();updateStatus();
+ state.span=state.auto&&launch&&item.type==='video'?15000:3000;state.deadline=Date.now()+state.span;rail();updateStatus();
 }
 let youtubePromise;
 function yt(){if(window.YT?.Player)return Promise.resolve();if(!youtubePromise)youtubePromise=new Promise((resolve,reject)=>{const old=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{old?.();resolve();};const script=el('script');script.src='https://www.youtube.com/iframe_api';script.onerror=()=>{youtubePromise=null;reject(Error('播放器無法載入'));};document.head.append(script);});return youtubePromise;}
@@ -40,17 +40,17 @@ async function activate(item){
  state.player=new window.YT.Player(holder.id,{videoId:item.videoId,host:'https://www.youtube.com',width:'100%',height:'100%',playerVars:{autoplay:1,playsinline:1,origin:location.origin,rel:0},events:{
  onReady:e=>{if(token!==state.token)return;e.target.getIframe().setAttribute('title',item.title);if(!state.sound)e.target.mute();else e.target.unMute();e.target.playVideo();state.lastAdvance=Date.now();},
  onStateChange:e=>{if(token!==state.token)return;state.playing=videoIsActive(e.data);
-  if(e.data===1){clearTimeout(state.watchdog);state.watchdog=null;state.lastAdvance=Date.now();state.lastPosition=e.target.getCurrentTime();if(state.auto&&!state.videoDeadlineSet){state.videoDeadlineSet=true;state.span=45000;state.deadline=Date.now()+45000;$('media-tag').textContent='影片 / 精選45秒';}}
+  if(e.data===1){clearTimeout(state.watchdog);state.watchdog=null;state.lastAdvance=Date.now();state.lastPosition=e.target.getCurrentTime();if(state.auto&&!state.videoDeadlineSet){state.videoDeadlineSet=true;state.span=12000;state.deadline=Date.now()+12000;$('media-tag').textContent='影片 / 精選12秒';}}
   if(e.data===2){touch();}
   if(e.data===0){touch();if(state.auto)step(1);}
   updateStatus();
- },onError:()=>fail(token,'這支影片目前無法在此播放，請開啟原始作品或選擇其他成果。'),onAutoplayBlocked:()=>{if(token!==state.token)return;clearTimeout(state.watchdog);state.watchdog=null;state.playing=false;touch();$('status').textContent='請點影片中的播放鍵';if(state.auto){state.deadline=Date.now()+12000;state.span=12000;}}}});
+ },onError:()=>fail(token,'這支影片目前無法在此播放，請開啟原始作品或選擇其他成果。'),onAutoplayBlocked:()=>{if(token!==state.token)return;clearTimeout(state.watchdog);state.watchdog=null;state.playing=false;touch();$('status').textContent='請點影片中的播放鍵';if(state.auto){state.deadline=Date.now()+3000;state.span=3000;}}}});
  }catch{fail(token,'目前無法連線至 YouTube，照片仍可繼續展示。');}
 }
 function rotation(){return rotationItems(items,state.mixed).filter(x=>x.project==='usr');}
 function step(direction){const a=state.auto?rotation():visibleItems();if(!a.length)return;const i=nextIndex(a.findIndex(x=>x.id===state.id),a.length,direction),item=a[i];show(item.id,state.auto&&item.type==='video');}
 function startAuto(){if($('lightbox').open)$('lightbox').close();if($('resources-dialog').open)$('resources-dialog').close();state.auto=true;state.project='usr';state.section='all';state.type='all';navs();const a=rotation();const item=a.find(x=>x.id===state.id)||a[0];if(item)show(item.id,state.mixed&&item.type==='video');updateStatus();}
-function updateStatus(){document.body.classList.toggle('auto-mode',state.auto);const a=rotation(),i=nextIndex(a.findIndex(x=>x.id===state.id),a.length);$('next-up').textContent=state.auto&&a[i]?'接著看｜'+a[i].title:'點選縮圖，探索完整作品';const item=current();$('auto').textContent=state.auto?'暫停輪播':'回到自動展示';$('sound').textContent=state.sound?'影片聲音：開':'影片聲音：關';if(state.auto)$('status').textContent=offline?'離線照片展示':state.mixed?'自動展示 · 照片12秒／影片45秒':'自動展示 · 每則12秒';else if(state.listenUntil>Date.now())$('status').textContent='聆聽保留 '+Math.ceil((state.listenUntil-Date.now())/1000)+' 秒';else if(state.playing)$('status').textContent='影片播放中 · 保留完整觀看';else $('status').textContent='點選瀏覽 · '+Math.max(0,60-Math.floor((Date.now()-state.lastAction)/1000))+' 秒後恢復輪播';}
+function updateStatus(){document.body.classList.toggle('auto-mode',state.auto);const a=rotation(),i=nextIndex(a.findIndex(x=>x.id===state.id),a.length);$('next-up').textContent=state.auto&&a[i]?'接著看｜'+a[i].title:'點選縮圖，探索完整作品';const item=current();$('auto').textContent=state.auto?'暫停輪播':'回到自動展示';$('sound').textContent=state.sound?'影片聲音：開':'影片聲音：關';if(state.auto)$('status').textContent=offline?'離線照片展示':state.mixed?'自動展示 · 照片3秒／影片12秒':'自動展示 · 每則3秒';else if(state.listenUntil>Date.now())$('status').textContent='聆聽保留 '+Math.ceil((state.listenUntil-Date.now())/1000)+' 秒';else if(state.playing)$('status').textContent='影片播放中 · 保留完整觀看';else $('status').textContent='點選瀏覽 · '+Math.max(0,60-Math.floor((Date.now()-state.lastAction)/1000))+' 秒後恢復輪播';}
 $('auto').onclick=()=>{if(state.auto){manual();if(state.player)state.player.pauseVideo();}else startAuto();};
 $('prev').onclick=()=>{manual();step(-1);};$('next').onclick=()=>{manual();step(1);};
 $('rotation-kind').onchange=e=>{state.mixed=e.target.value==='mixed';startAuto();};
@@ -62,7 +62,7 @@ $('lightbox').addEventListener('click',e=>{if(e.target===$('lightbox'))$('lightb
 for(const event of ['pointerdown','keydown','touchstart','wheel'])document.addEventListener(event,touch,{passive:true});
 document.addEventListener('pointermove',()=>{if(!state.auto)touch();},{passive:true});
 document.addEventListener('keydown',e=>{if(['BUTTON','SELECT','INPUT','TEXTAREA'].includes(e.target.tagName)||$('lightbox').open)return;if(e.key==='ArrowRight'){manual();step(1);}if(e.key==='ArrowLeft'){manual();step(-1);}if(e.code==='Space'){e.preventDefault();$('auto').click();}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){if(state.player)state.player.pauseVideo();}else{touch();state.deadline=Date.now()+12000;}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(state.player)state.player.pauseVideo();}else{touch();state.span=state.auto&&current().type==='video'?12000:3000;state.deadline=Date.now()+state.span;}});
 setInterval(()=>{
  if(document.hidden)return;const now=Date.now();
  if(state.playing&&state.player){try{const pos=state.player.getCurrentTime();if(pos!==state.lastPosition){state.lastPosition=pos;state.lastAdvance=now;}else if(now-state.lastAdvance>25000)fail(state.token,'影片連線暫停，請選擇其他成果或重新開啟作品。');}catch{}}
@@ -76,7 +76,7 @@ function startMusicGallery(){
  const photos=items.filter(x=>x.project==='usr'&&x.type==='photo'&&x.eligible);
  if(!photos.length)return;const backdrop=el('div',undefined,'music-gallery'),photo=el('img'),caption=el('span');
  let n=0;function change(){const item=photos[n++%photos.length];photo.src=item.image;photo.alt='';caption.textContent='共創現場｜'+item.title;}
- change();backdrop.append(photo,caption);$('media').prepend(backdrop);state.gallery=setInterval(()=>{if(!document.hidden&&!document.body.classList.contains('reduced-motion')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)change();},10000);
+ change();backdrop.append(photo,caption);$('media').prepend(backdrop);state.gallery=setInterval(()=>{if(!document.hidden&&!document.body.classList.contains('reduced-motion')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)change();},3000);
 }
 let wakeLock=null,exhibitionMode=false;
 async function keepAwake(){
